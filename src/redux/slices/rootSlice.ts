@@ -1,23 +1,38 @@
-import { createSlice } from "@reduxjs/toolkit"
+import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 
 interface BoxState {
-  isClicked: boolean
+  gameGridArr: [number[]] | []
 }
 
 const initialState: BoxState = {
-  isClicked: false,
+  gameGridArr: [],
 }
 
 export const rootSlice = createSlice({
   name: "root",
   initialState,
   reducers: {
-    handleBoxClick: (state) => {
-      state.isClicked = true
+    fillGrid: (state) => {
+      let arr: any = new Array(6)
+      for (let i = 0; i < arr.length; i++) {
+        arr[i] = new Array(7).fill(0)
+      }
+      state.gameGridArr = arr
+    },
+    handleBoxClick: {
+      reducer(state, action: PayloadAction<{ y: number; x: number }>) {
+        const { y, x } = action.payload
+        state.gameGridArr[y][x] = 1
+      },
+      prepare(y, x) {
+        return {
+          payload: { y, x },
+        }
+      },
     },
   },
 })
 
-export const { handleBoxClick } = rootSlice.actions
+export const { fillGrid, handleBoxClick } = rootSlice.actions
 
 export default rootSlice.reducer

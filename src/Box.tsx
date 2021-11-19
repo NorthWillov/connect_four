@@ -1,4 +1,4 @@
-import React, { FC } from "react"
+import React, { FC, useState } from "react"
 import { useAppSelector, useAppDispatch } from "./redux/hooks"
 import { handleBoxClick } from "./redux/slices/rootSlice"
 
@@ -8,11 +8,13 @@ interface IBox {
 }
 
 const Box: FC<IBox> = ({ rowY, colX }) => {
-  const isClicked = useAppSelector((state) => state.root.isClicked)
+  // const isClicked = useAppSelector((state) => state.root.isClicked)
   const dispatch = useAppDispatch()
+  const [isClicked, setIsClicked] = useState(false)
 
   const hanldeClick = () => {
-    dispatch(handleBoxClick())
+    dispatch(handleBoxClick(rowY, colX))
+    setIsClicked(true)
     console.log(`Coordinates: y: ${rowY} x: ${colX}`)
   }
 
