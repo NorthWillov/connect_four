@@ -2,10 +2,12 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 
 interface BoxState {
   gameGridArr: [number[]] | []
+  currPlayer: number
 }
 
 const initialState: BoxState = {
   gameGridArr: [],
+  currPlayer: 1,
 }
 
 export const rootSlice = createSlice({
@@ -22,7 +24,12 @@ export const rootSlice = createSlice({
     handleBoxClick: {
       reducer(state, action: PayloadAction<{ y: number; x: number }>) {
         const { y, x } = action.payload
-        state.gameGridArr[y][x] = 1
+        if (!state.gameGridArr[y][x]) {
+          state.gameGridArr[y][x] = state.currPlayer
+          state.currPlayer === 1
+            ? (state.currPlayer = 2)
+            : (state.currPlayer = 1)
+        }
       },
       prepare(y, x) {
         return {

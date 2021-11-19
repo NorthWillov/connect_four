@@ -8,11 +8,13 @@ interface IBox {
 }
 
 const Box: FC<IBox> = ({ rowY, colX }) => {
-  // const isClicked = useAppSelector((state) => state.root.isClicked)
+  const root = useAppSelector((state) => state.root)
   const dispatch = useAppDispatch()
   const [isClicked, setIsClicked] = useState(false)
+  const [myColor, setMyColor] = useState<string>("")
 
   const hanldeClick = () => {
+    setMyColor(root.currPlayer === 1 ? "Red" : "Yellow")
     dispatch(handleBoxClick(rowY, colX))
     setIsClicked(true)
     console.log(`Coordinates: y: ${rowY} x: ${colX}`)
@@ -20,7 +22,7 @@ const Box: FC<IBox> = ({ rowY, colX }) => {
 
   return (
     <div
-      className={`Box ${isClicked ? "Box-Red" : null}`}
+      className={`Box ${isClicked && `Box-${myColor}`}`}
       onClick={hanldeClick}
     ></div>
   )
