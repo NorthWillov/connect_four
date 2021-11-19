@@ -1,16 +1,19 @@
 import React, { FC } from "react"
 import Box from "./Box"
 
-const Row: FC = () => {
+interface IRow {
+  x: number
+  rowY: number
+}
+
+const Row: FC<IRow> = ({ x, rowY }) => {
   return (
     <div className="Row">
-      <Box />
-      <Box />
-      <Box />
-      <Box />
-      <Box />
-      <Box />
-      <Box />
+      {Array(x)
+        .fill(1)
+        .map((notused, idx) => (
+          <Box rowY={rowY} colX={idx} key={idx} />
+        ))}
     </div>
   )
 }

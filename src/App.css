@@ -2,9 +2,8 @@
   text-align: center;
 }
 .Grid {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  width: 394px;
+  margin: 0 auto;
 }
 .Row {
   display: flex;
