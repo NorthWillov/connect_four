@@ -1,10 +1,14 @@
-import React, { FC, useState } from "react"
+import React, { FC } from "react"
+import { useAppSelector, useAppDispatch } from "./redux/hooks"
+import { handleBoxClick } from "./redux/slices/rootSlice"
 
 const Box: FC = () => {
-  const [isClicked, setIsClicked] = useState(false)
+  const isClicked = useAppSelector((state) => state.root.isClicked)
+  const dispatch = useAppDispatch()
 
   const hanldeClick = () => {
-    setIsClicked(true)
+    dispatch(handleBoxClick())
+    console.log(isClicked)
   }
 
   return (
