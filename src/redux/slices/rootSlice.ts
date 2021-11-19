@@ -19,17 +19,20 @@ export const rootSlice = createSlice({
       for (let i = 0; i < arr.length; i++) {
         arr[i] = new Array(7).fill(0)
       }
+      // Make last row active on initialization
+      for (let i = 0; i < 7; i++) {
+        arr[5][i] = 5
+      }
       state.gameGridArr = arr
     },
     handleBoxClick: {
       reducer(state, action: PayloadAction<{ y: number; x: number }>) {
         const { y, x } = action.payload
-        if (!state.gameGridArr[y][x]) {
-          state.gameGridArr[y][x] = state.currPlayer
-          state.currPlayer === 1
-            ? (state.currPlayer = 2)
-            : (state.currPlayer = 1)
+        state.gameGridArr[y][x] = state.currPlayer
+        if (y > 0) {
+          state.gameGridArr[y - 1][x] = 5
         }
+        state.currPlayer === 1 ? (state.currPlayer = 2) : (state.currPlayer = 1)
       },
       prepare(y, x) {
         return {

@@ -1,11 +1,11 @@
 import { FC, useEffect } from "react"
 import "./App.css"
-import { useAppSelector, useAppDispatch } from "./redux/hooks"
+import { useAppDispatch, useAppSelector } from "./redux/hooks"
 import { fillGrid } from "./redux/slices/rootSlice"
 import Grid from "./Grid"
 
 const App: FC = () => {
-  const root = useAppSelector((state) => state.root)
+  const { gameGridArr } = useAppSelector((state) => state.root)
   const dispatch = useAppDispatch()
 
   useEffect(() => {
@@ -15,7 +15,7 @@ const App: FC = () => {
   return (
     <div className="App">
       <h1>Connect Four</h1>
-      <Grid y={6} x={7} />
+      {gameGridArr.length !== 0 ? <Grid y={6} x={7} /> : null}
     </div>
   )
 }
