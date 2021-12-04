@@ -13,10 +13,6 @@ const Box: FC<IBox> = ({ rowY, colX }) => {
   const [isClicked, setIsClicked] = useState(false)
   const [myColor, setMyColor] = useState<string>("")
 
-  useEffect(() => {
-    console.log(gameGridArr)
-  }, [])
-
   const hanldeClick = () => {
     if (gameGridArr[rowY][colX] === 5) {
       setMyColor(currPlayer === 1 ? "Red" : "Yellow")
