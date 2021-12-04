@@ -8,14 +8,16 @@ interface IBox {
 }
 
 const Box: FC<IBox> = ({ rowY, colX }) => {
-  const { gameGridArr, currPlayer } = useAppSelector((state) => state.root)
+  const { gameGridArr, currPlayer, winner } = useAppSelector(
+    (state) => state.root
+  )
   const dispatch = useAppDispatch()
   const [isClicked, setIsClicked] = useState(false)
   const [myColor, setMyColor] = useState<string>("")
 
   const hanldeClick = () => {
-    if (gameGridArr[rowY][colX] === 5) {
-      setMyColor(currPlayer === 1 ? "Red" : "Yellow")
+    if (gameGridArr[rowY][colX] === "enabled" && winner === "Draw") {
+      setMyColor(currPlayer === "Red" ? "Red" : "Yellow")
       dispatch(handleBoxClick(rowY, colX))
       setIsClicked(true)
       console.log(`Coordinates: y: ${rowY} x: ${colX}`)
@@ -25,7 +27,7 @@ const Box: FC<IBox> = ({ rowY, colX }) => {
   return (
     <div
       className={`Box ${isClicked ? `Box-${myColor}` : ""} ${
-        gameGridArr[rowY][colX] === 5 ? "enabled" : ""
+        gameGridArr[rowY][colX] === "enabled" ? "enabled" : ""
       }`}
       onClick={hanldeClick}
     ></div>
